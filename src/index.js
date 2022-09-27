@@ -22,6 +22,14 @@ app.get('/api/orders', async (req, res) => {
     offset = req.query.offset;
   }
 
+  limit = parseInt(limit)
+  offset = parseInt(offset)
+  if (!limit) {
+    limit = 10;
+  }
+  if (!offset) {
+    offset = 0;
+  }
 
   const q = `SELECT * FROM orders LIMIT ${limit} OFFSET ${offset}`;
   connection.query(q, (err, response) => {
