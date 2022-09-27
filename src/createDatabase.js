@@ -2,6 +2,7 @@
 let con = require('./connector')
 let data = require('./data')
 let a = async (err) => {
+    console.log("from create Database")
 
     if (err) return console.log("failed to connect to mysql server/ database", err);
     else {

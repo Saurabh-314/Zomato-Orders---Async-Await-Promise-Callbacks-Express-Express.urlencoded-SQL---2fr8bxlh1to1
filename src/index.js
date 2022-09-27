@@ -8,7 +8,29 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 const connection = require('./connector')
 
+app.get('/api/orders', async (req, res) => {
+  let limit = 10;
+  let offset = 0;
+  if (req.query.limit && req.query.offset) {
+    limit = req.query.limit;
+    offset = req.query.offset;
+  }
+  else if (req.query.limit) {
+    limit = req.query.limit;
+  }
+  else if (req.query.offset) {
+    offset = req.query.offset;
+  }
 
+
+  const q = `SELECT * FROM orders LIMIT ${limit} OFFSET ${offset}`;
+  connection.query(q, (err, response) => {
+    if (err) {
+      return console.log(err);
+    }
+    return res.status(200).send(response);
+  })
+})
 
 app.listen(port, () => console.log(`App listening on port ${port}!`))
 
