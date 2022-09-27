@@ -22,12 +22,16 @@ app.get('/api/orders', async (req, res) => {
     offset = req.query.offset;
   }
 
-  limit = parseInt(limit)
-  offset = parseInt(offset)
-  if (!limit) {
+  let regexPattern = /^-?[0-9]+$/;
+
+  // check if the passed number is integer or not
+  let resultLimit = regexPattern.test(limit);
+  let resultOffset = regexPattern.test(offset);
+
+  if (!resultLimit) {
     limit = 10;
   }
-  if (!offset) {
+  if (!resultOffset) {
     offset = 0;
   }
 
