@@ -22,7 +22,8 @@ app.get('/api/orders', async (req, res) => {
     offset = req.query.offset;
   }
 
-  let regexPattern = /^-?[0-9]+$/;
+  // let regexPattern = /^-?[0-9]+$/;
+  let regexPattern = /^\+?(0|[1-9]\d*)$/; //  for checking Negative value
 
   // check if the passed number is integer or not
   let resultLimit = regexPattern.test(limit);
